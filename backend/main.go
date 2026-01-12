@@ -1,9 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 )
+
+type Message struct {
+	Msg string `json:"msg"`
+}
 
 func main() {
 	router := http.NewServeMux()
@@ -12,9 +17,13 @@ func main() {
 		Handler: router,
 	}
 
+	router.HandleFunc("/", HandleHome)
+
 	log.Fatal(server.ListenAndServe())
 }
 
 func HandleHome(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Welcome home"))
+	message := Message{Msg: "Welcome home!"}
+	jaysawn, _ := json.Marshal(message)
+	w.Write(jaysawn)
 }
