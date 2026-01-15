@@ -22,7 +22,7 @@ func main() {
 	log.Fatal(server.ListenAndServe())
 }
 
-func HandleHome(w http.ResponseWriter, r *http.Request) { // Set the origin to * to allow all origins, or specify a particular origin
+func HandleHome(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
