@@ -1,5 +1,7 @@
 package repository
 
+import "github.com/idomath/playground/backend/db"
+
 type Repository struct {
-	BlogHandler BlogHandler
+	BlogStore db.BlogStore
 }
