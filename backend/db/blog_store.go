@@ -25,5 +25,11 @@ func (s *BlogStore) InsertBlog(blog *models.Blog) error {
 func (s *BlogStore) GetAllBlogs() ([]*models.Blog, error) {
 	var blogs []*models.Blog
 
+	query := `SELECT title, body, author_id FROM blogs`
+
 	return blogs, nil
+}
+
+func (s *BlogStore) GetBlogById(id int) (*models.Blog, error) {
+	query := `SELECT title, body, author_id FROM blogs WHERE id = ?`
 }
