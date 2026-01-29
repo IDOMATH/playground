@@ -27,9 +27,34 @@ func (s *BlogStore) GetAllBlogs() ([]*models.Blog, error) {
 
 	query := `SELECT title, body, author_id FROM blogs`
 
+	rows, err := s.DB.Query(query)
+	if err != nil {
+		return blogs, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var row *models.Blog
+		err := rows.Scan(
+			row.Title,
+			row.Body,
+			row.AuthorId)
+
+		if err != nil {
+			return blogs, err
+		}
+		blogs = append(blogs, row)
+	}
+
 	return blogs, nil
 }
 
 func (s *BlogStore) GetBlogById(id int) (*models.Blog, error) {
+	var blog *models.Blog
+
 	query := `SELECT title, body, author_id FROM blogs WHERE id = ?`
+
+	err := s.DB.QueryRow(query, id).Scan(blog.Title, blog.Body, blog.AuthorId)
+
+	return blog, err
 }
