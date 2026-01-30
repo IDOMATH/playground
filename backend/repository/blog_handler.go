@@ -1,6 +1,9 @@
 package repository
 
-import "net/http"
+import (
+	"net/http"
+	"strconv"
+)
 
 func (repo *Repository) HandleCreateBlogPost(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
@@ -18,4 +21,15 @@ func (repo *Repository) HandleGetBlogPosts(w http.ResponseWriter, r *http.Reques
 
 	}
 	w.WriteHeader(http.StatusOK)
+}
+
+func (repo *Repository) HandleGetBlogById(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(r.PathValue("id"))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	blog, err := repo.BlogStore.GetBlogById(id)
+	w.Write([]byte(blog.Title))
 }
