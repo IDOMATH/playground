@@ -18,7 +18,6 @@ func (repo *Repository) HandleGetBlogPosts(w http.ResponseWriter, r *http.Reques
 	}
 	for _, blog := range blogs {
 		w.Write([]byte(blog.Title))
-
 	}
 	w.WriteHeader(http.StatusOK)
 }
@@ -31,5 +30,11 @@ func (repo *Repository) HandleGetBlogById(w http.ResponseWriter, r *http.Request
 	}
 
 	blog, err := repo.BlogStore.GetBlogById(id)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.Write([]byte(blog.Title))
+
+	w.WriteHeader(http.StatusOK)
 }
