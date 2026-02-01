@@ -6,6 +6,17 @@ import (
 )
 
 func (repo *Repository) HandleCreateBlogPost(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		w.Write([]byte("error parsing form"))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	r.PostForm.Get("title")
+	r.PostForm.Get("body")
+	r.PostForm.Get("author")
+
 	w.WriteHeader(http.StatusCreated)
 }
 
