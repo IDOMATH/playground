@@ -3,6 +3,8 @@ package repository
 import (
 	"net/http"
 	"strconv"
+
+	"github.com/idomath/playground/backend/models"
 )
 
 func (repo *Repository) HandleCreateBlogPost(w http.ResponseWriter, r *http.Request) {
@@ -13,9 +15,23 @@ func (repo *Repository) HandleCreateBlogPost(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	r.PostForm.Get("title")
-	r.PostForm.Get("body")
-	r.PostForm.Get("author")
+	var blog models.Blog
+
+	blog.Title = r.PostForm.Get("title")
+	blog.Body = r.PostForm.Get("body")
+	blog.AuthorId, err = strconv.Atoi(r.PostForm.Get("author"))
+	if err != nil {
+		w.Write([]byte("error converting id to int"))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	err = repo.BlogStore.InsertBlog(&blog)
+	if err != nil {
+		w.Write([]byte("error inserting blog"))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
 	w.WriteHeader(http.StatusCreated)
 }
