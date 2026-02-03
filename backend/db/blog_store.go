@@ -34,7 +34,7 @@ func (s *BlogStore) GetAllBlogs() ([]*models.Blog, error) {
 
 	defer rows.Close()
 	for rows.Next() {
-		var row *models.Blog
+		var row models.Blog
 		err := rows.Scan(
 			row.Title,
 			row.Body,
@@ -43,14 +43,14 @@ func (s *BlogStore) GetAllBlogs() ([]*models.Blog, error) {
 		if err != nil {
 			return blogs, err
 		}
-		blogs = append(blogs, row)
+		blogs = append(blogs, &row)
 	}
 
 	return blogs, nil
 }
 
-func (s *BlogStore) GetBlogById(id int) (*models.Blog, error) {
-	var blog *models.Blog
+func (s *BlogStore) GetBlogById(id int) (models.Blog, error) {
+	var blog models.Blog
 
 	query := `SELECT title, body, author_id FROM blogs WHERE id = ?`
 
