@@ -38,7 +38,8 @@ func main() {
 	repo := repository.Repository{BlogStore: *db.NewBlogStore(postgresDb.SQL)}
 
 	router.HandleFunc("/", HandleHome)
-	router.HandleFunc("POST /blog/{id}", repo.HandleCreateBlogPost)
+	router.HandleFunc("POST /blogs/{id}", repo.HandleCreateBlogPost)
+	router.HandleFunc("GET /blogs", repo.HandleGetBlogPosts)
 
 	log.Fatal(server.ListenAndServe())
 }
