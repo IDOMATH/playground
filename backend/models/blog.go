@@ -1,7 +1,7 @@
 package models
 
 type Blog struct {
-	Title    string
-	Body     string
-	AuthorId int
+	Title    string `json:"title"`
+	Body     string `json:"body"`
+	AuthorId int    `json:"author_id"`
 }
