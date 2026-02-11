@@ -41,6 +41,7 @@ func main() {
 	router.HandleFunc("POST /blogs/", repo.HandleCreateBlogPost)
 	router.HandleFunc("GET /blogs", repo.HandleGetBlogPosts)
 	router.HandleFunc("GET /blogs/{id}", repo.HandleGetBlogById)
+	router.HandleFunc("DELETE /blogs/{id}", repo.HandleDeleteBlogPost)
 
 	log.Fatal(server.ListenAndServe())
 }

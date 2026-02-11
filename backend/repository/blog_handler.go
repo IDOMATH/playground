@@ -73,7 +73,7 @@ func (repo *Repository) HandleDeleteBlogPost(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	// err = repo.BlogStore.DeleteBlog(id)
+	err = repo.BlogStore.DeleteBlog(id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
