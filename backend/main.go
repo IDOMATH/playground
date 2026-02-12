@@ -15,6 +15,11 @@ type Message struct {
 }
 
 func main() {
+	log.Fatal(run())
+}
+
+func run() error {
+
 	router := http.NewServeMux()
 	server := http.Server{
 		Addr:    ":8080",
@@ -43,7 +48,7 @@ func main() {
 	router.HandleFunc("GET /blogs/{id}", repo.HandleGetBlogById)
 	router.HandleFunc("DELETE /blogs/{id}", repo.HandleDeleteBlogPost)
 
-	log.Fatal(server.ListenAndServe())
+	return server.ListenAndServe()
 }
 
 func HandleHome(w http.ResponseWriter, r *http.Request) {
