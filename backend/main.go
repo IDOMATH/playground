@@ -42,13 +42,19 @@ func run() error {
 
 	repo := repository.Repository{BlogStore: *db.NewBlogStore(postgresDb.SQL)}
 
+	addRoutes(router, &repo)
+
+	return server.ListenAndServe()
+}
+
+func addRoutes(router *http.ServeMux, repo *repository.Repository) {
+
 	router.HandleFunc("/", HandleHome)
 	router.HandleFunc("POST /blogs/", repo.HandleCreateBlogPost)
 	router.HandleFunc("GET /blogs", repo.HandleGetBlogPosts)
 	router.HandleFunc("GET /blogs/{id}", repo.HandleGetBlogById)
 	router.HandleFunc("DELETE /blogs/{id}", repo.HandleDeleteBlogPost)
 
-	return server.ListenAndServe()
 }
 
 func HandleHome(w http.ResponseWriter, r *http.Request) {
