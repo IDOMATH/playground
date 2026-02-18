@@ -21,3 +21,7 @@ func (s *UserStore) InsertUser(user *models.User) error {
 	_, err := s.DB.Exec(query, user.Email, user.PasswordHash)
 	return err
 }
+
+func (s *UserStore) LogIn(email, pass string) error {
+	query := `SELECT email, password_hash FROM users WHERE email = ?`
+}
