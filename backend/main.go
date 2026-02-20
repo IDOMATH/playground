@@ -40,7 +40,7 @@ func run() error {
 		log.Fatal(err)
 	}
 
-	repo := repository.NewRepository(db.NewBlogStore(postgresDb.SQL))
+	repo := repository.NewRepository(db.NewBlogStore(postgresDb.SQL), db.NewUserStore(postgresDb.SQL))
 
 	addRoutes(router, &repo)
 
