@@ -56,6 +56,7 @@ func addRoutes(router *http.ServeMux, repo *repository.Repository) {
 	router.HandleFunc("DELETE /blogs/{id}", repo.HandleDeleteBlogPost)
 	router.HandleFunc("POST /users/", repo.HandleNewUser)
 	router.HandleFunc("POST /login", repo.HandleLogin)
+	router.HandleFunc("POST /logout", repo.HandleLogout)
 }
 
 func HandleHome(w http.ResponseWriter, r *http.Request) {
