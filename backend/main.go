@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/IDOMATH/session/memorystore"
+
 	"github.com/idomath/playground/backend/db"
 	"github.com/idomath/playground/backend/repository"
 )
@@ -41,6 +43,9 @@ func run() error {
 	}
 
 	repo := repository.NewRepository(db.NewBlogStore(postgresDb.SQL), db.NewUserStore(postgresDb.SQL))
+
+	memstore := memorystore.New[string]()
+	repo.Session = memstore
 
 	addRoutes(router, &repo)
 

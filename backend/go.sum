@@ -1,3 +1,5 @@
+github.com/IDOMATH/session v0.0.0-20250717031237-eaa4d24abcea h1:jhuSbZrd6q7FPfSITpAFychUPFqL3PsIoSS0aj89V38=
+github.com/IDOMATH/session v0.0.0-20250717031237-eaa4d24abcea/go.mod h1:+n0Dj1Z8SmmUNPxyXXqo2d1V+tyGpkXkCU/teExlm4E=
 github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
 github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 golang.org/x/crypto v0.48.0 h1:/VRzVqiRSggnhY7gNRxPauEQ5Drw9haKdM0jqfcCFts=
