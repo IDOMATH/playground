@@ -42,10 +42,8 @@ func run() error {
 		log.Fatal(err)
 	}
 
-	repo := repository.NewRepository(db.NewBlogStore(postgresDb.SQL), db.NewUserStore(postgresDb.SQL))
-
 	memstore := memorystore.New[string]()
-	repo.Session = memstore
+	repo := repository.NewRepository(db.NewBlogStore(postgresDb.SQL), db.NewUserStore(postgresDb.SQL), memstore)
 
 	addRoutes(router, &repo)
 
