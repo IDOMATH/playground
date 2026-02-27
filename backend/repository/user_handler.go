@@ -18,6 +18,14 @@ func (repo *Repository) HandleNewUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	err = repo.UserStore.InsertUser(user)
+	if err != nil {
+		// log.Error("HandlePostNewUser", "error inserting user", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("email already in use"))
+		return
+	}
+
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte("Inserted new user"))
 }
