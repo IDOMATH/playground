@@ -22,7 +22,7 @@ func (repo *Repository) HandleNewUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// log.Error("HandlePostNewUser", "error inserting user", err)
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("email already in use"))
+		w.Write([]byte("error inserting user"))
 		return
 	}
 
@@ -31,7 +31,6 @@ func (repo *Repository) HandleNewUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
-
 }
 
 func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {}
