@@ -3,6 +3,7 @@ package repository
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/idomath/playground/backend/models"
 )
@@ -31,6 +32,7 @@ func (repo *Repository) HandleNewUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
+	repo.Session.Insert("user", "userData", time.Now().Add(time.Second))
 }
 
 func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {}
