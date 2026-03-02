@@ -32,7 +32,9 @@ func (repo *Repository) HandleNewUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
-	repo.Session.Insert("user", "userData", time.Now().Add(time.Second))
+	repo.Session.Insert("user", "userData", time.Now().Add(time.Minute))
 }
 
-func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {}
+func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {
+	repo.Session.Delete("user")
+}
