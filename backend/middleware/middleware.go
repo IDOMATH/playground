@@ -9,6 +9,13 @@ import (
 
 type Middleware func(http.HandlerFunc) http.HandlerFunc
 
+func Use(handler http.HandlerFunc, middlewares ...Middleware) http.HandlerFunc {
+	for _, m := range middlewares {
+		handler = m(handler)
+	}
+	return handler
+}
+
 func Authorize(repo *repository.Repository) Middleware {
 	return func(next http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
