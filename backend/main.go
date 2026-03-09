@@ -9,6 +9,7 @@ import (
 	"github.com/IDOMATH/session/memorystore"
 
 	"github.com/idomath/playground/backend/db"
+	"github.com/idomath/playground/backend/middleware"
 	"github.com/idomath/playground/backend/repository"
 )
 
@@ -53,7 +54,7 @@ func run() error {
 func addRoutes(router *http.ServeMux, repo *repository.Repository) {
 
 	router.HandleFunc("/", HandleHome)
-	router.HandleFunc("POST /blogs/", repo.HandleCreateBlogPost)
+	router.HandleFunc("POST /blogs/", middleware.Use(repo.HandleCreateBlogPost, middleware.Authorize(repo)))
 	router.HandleFunc("GET /blogs", repo.HandleGetBlogPosts)
 	router.HandleFunc("GET /blogs/{id}", repo.HandleGetBlogById)
 	router.HandleFunc("DELETE /blogs/{id}", repo.HandleDeleteBlogPost)
