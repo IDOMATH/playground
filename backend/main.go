@@ -57,7 +57,7 @@ func addRoutes(router *http.ServeMux, repo *repository.Repository) {
 	router.HandleFunc("POST /blogs/", middleware.Use(repo.HandleCreateBlogPost, middleware.Authorize(repo)))
 	router.HandleFunc("GET /blogs", repo.HandleGetBlogPosts)
 	router.HandleFunc("GET /blogs/{id}", repo.HandleGetBlogById)
-	router.HandleFunc("DELETE /blogs/{id}", repo.HandleDeleteBlogPost)
+	router.HandleFunc("DELETE /blogs/{id}", middleware.Use(repo.HandleDeleteBlogPost, middleware.Authorize(repo)))
 	router.HandleFunc("POST /users/", repo.HandleNewUser)
 	router.HandleFunc("POST /login", repo.HandleLogin)
 	router.HandleFunc("POST /logout", repo.HandleLogout)
