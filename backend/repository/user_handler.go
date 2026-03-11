@@ -38,6 +38,10 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {
-	repo.Session.Delete("user")
+	err := repo.Session.Delete("user")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 }
