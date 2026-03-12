@@ -38,7 +38,8 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {
-	err := repo.Session.Delete("user")
+	token := r.Header.Get("cheetauth")
+	err := repo.Session.Delete(token)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
