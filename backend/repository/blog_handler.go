@@ -19,7 +19,14 @@ func (repo *Repository) HandleCreateBlogPost(w http.ResponseWriter, r *http.Requ
 
 	blog.Title = r.PostForm.Get("title")
 	blog.Body = r.PostForm.Get("body")
-	blog.AuthorId, err = strconv.Atoi(r.PostForm.Get("author"))
+	token := r.Header.Get("cheetauth")
+	user, found := repo.Session.Get(token)
+	if !found {
+		w.Write([]byte("Must be logged in to do that"))
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	blog.AuthorId, err = strconv.Atoi(user)
 	if err != nil {
 		w.Write([]byte("error converting id to int"))
 		w.WriteHeader(http.StatusInternalServerError)
