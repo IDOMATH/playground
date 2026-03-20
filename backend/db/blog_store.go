@@ -62,6 +62,27 @@ func (s *BlogStore) GetBlogById(id int) (models.Blog, error) {
 func (s *BlogStore) GetBlogsByAuthor(id int) ([]*models.Blog, error) {
 	var blogs []*models.Blog
 
+	query := `SELECT title, body, author_id FROM blogs WHERE author_id = ?`
+
+	rows, err := s.DB.Query(query)
+	if err != nil {
+		return blogs, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var row models.Blog
+		err := rows.Scan(
+			row.Title,
+			row.Body,
+			row.AuthorId)
+
+		if err != nil {
+			return blogs, err
+		}
+		blogs = append(blogs, &row)
+	}
+
 	return blogs, nil
 }
 
