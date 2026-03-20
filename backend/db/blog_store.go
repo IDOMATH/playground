@@ -59,6 +59,12 @@ func (s *BlogStore) GetBlogById(id int) (models.Blog, error) {
 	return blog, err
 }
 
+func (s *BlogStore) GetBlogsByAuthor(id int) ([]*models.Blog, error) {
+	var blogs []*models.Blog
+
+	return blogs, nil
+}
+
 func (s *BlogStore) DeleteBlog(id int) error {
 	query := `DELETE FROM blogs WHERE id = ?`
 	_, err := s.DB.Exec(query, id)
