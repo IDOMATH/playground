@@ -34,3 +34,9 @@ func (s *UserStore) LogIn(email, pass string) error {
 	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(pass))
 	return err
 }
+
+func (s *UserStore) GetUsers() ([]string, error) {
+	var users []string
+
+	return users, nil
+}
